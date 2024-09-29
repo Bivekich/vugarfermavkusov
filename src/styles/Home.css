@@ -1,0 +1,11 @@
+/* Grid container for product cards */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 200px)
+  ); /* Responsive grid */
+  gap: 1.2rem; /* Space between cards */
+  padding: 16px;
+  justify-items: center;
+}

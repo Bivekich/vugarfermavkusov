@@ -1,0 +1,138 @@
+/* General styles for the product card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  background-color: white; /* Light theme background */
+}
+
+.product-card:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Image container styles */
+.product-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.product-image-container {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+}
+
+.product-image-container:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Action button styles */
+.product-action {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 10;
+}
+
+.action-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  aspect-ratio: 1;
+  background-color: #ff5722; /* Light theme button */
+  border-radius: 50%;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.action-button svg {
+  min-width: 50px;
+  height: 100%;
+}
+
+/* Product info section */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  height: 100%;
+  background-color: white; /* Light theme background */
+}
+
+.product-price {
+  margin-bottom: 8px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333; /* Light theme text */
+}
+
+.product-title {
+  font-size: 1rem;
+  color: #333; /* Light theme text */
+  margin-bottom: 8px;
+}
+
+.product-unit {
+  margin-top: auto;
+  font-size: 0.875rem;
+  color: #666; /* Light theme text */
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .product-card {
+    background-color: #333; /* Dark theme background */
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .product-card:hover {
+    box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.2);
+  }
+
+  .product-info {
+    background-color: #333; /* Dark theme background */
+  }
+
+  .price,
+  .product-title,
+  .product-unit {
+    color: #fff; /* Dark theme text */
+  }
+
+  .action-button {
+    background-color: #ff8a50; /* Dark theme button */
+  }
+}
