@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+#siteHeader {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 80px;
+  height: auto;
+}
+
+/* Navigation Menu Styles */
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav-menu ul li {
+  position: relative; /* Allows absolute positioning for submenus */
+  margin: 0 15px;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  padding: 10px;
+  display: block;
+}
+
+/* Dropdown Menu Styles */
+.dropdown {
+  visibility: hidden;
+  position: absolute; /* Absolute positioning for submenu */
+  top: 100%; /* Place submenu below the parent item */
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0; /* Hidden by default */
+  transition: visibility 0s, opacity 0.3s ease; /* Smooth visibility and opacity transition */
+}
+.search-container-header {
+  flex-grow: 1; /* Allow it to grow to fill available space */
+  margin: 0; /* Adjust margin as needed */
+}
+
+.search-input {
+  width: 100%; /* Full width */
+  padding: 8px 12px; /* Padding for the input */
+  border: 1px solid #ccc; /* Border styling */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+}
+
+.search-input:focus {
+  outline: none; /* Remove outline on focus */
+  border-color: #007bff; /* Change border color on focus */
+}
+.nav-menu > ul > li:hover > .dropdown,
+.nav-menu > ul > li:hover > .dropdown * {
+  visibility: visible;
+  opacity: 1; /* Show dropdown on hover */
+}
+
+.dropdown li {
+  margin: 0;
+  width: 150px;
+}
+
+.dropdown li a {
+  padding: 10px;
+  color: #333;
+  white-space: nowrap;
+  transition: 0.1s;
+}
+
+.dropdown li a:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+}
+.menu-btn.hamburger {
+  display: none; /* Show menu button on mobile */
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0rem;
+  align-items: center;
+}
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .nav-menu ul {
+    display: none; /* Hide main menu on mobile */
+  }
+
+  .nav-menu.open ul {
+    display: flex; /* Show menu when open */
+    flex-direction: column; /* Stack menu items vertically */
+    position: absolute; /* Make it absolute */
+    top: 60px; /* Adjust based on your header height */
+    left: 0;
+    right: 0;
+    background-color: white; /* Background color for dropdown */
+    z-index: 10; /* Ensure it appears above other elements */
+    padding: 1rem; /* Add some padding */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for dropdown */
+  }
+
+  .menu-btn.hamburger {
+    display: block; /* Show menu button on mobile */
+  }
+
+  .header-container {
+    padding: 10px;
+  }
+
+  .dropdown {
+    position: static; /* Make submenu static on mobile */
+    box-shadow: none;
+  }
+}
+
+/* Search Container Styles */
+.search-container-header {
+  display: flex;
+  align-items: center;
+}
+
+.search-container-header form {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.search-container-header input {
+  padding: 8px 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-container-header button {
+  background-color: transparent;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.menu-btn button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+/* Cart Sidebar */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px; /* Hidden by default */
+  width: 350px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.cart-sidebar.open {
+  right: 0; /* Slide in when open */
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.clear-cart {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.clear-cart:hover {
+  background-color: #d32f2f;
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.empty-cart {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.cart-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
