@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({ id, title, price, image, per, onClick }) => {
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg cursor-pointer transition-all duration-300 shadow-lg max-w-[200px] bg-white">
+    <article className="flex flex-col overflow-hidden rounded-lg cursor-pointer transition-all duration-300 shadow-lg max-w-[200px] lg:w-[200px] bg-white">
       <div className="relative flex-shrink-0">
         <div className="w-full h-[200px] transition-transform duration-200 relative">
           <img
