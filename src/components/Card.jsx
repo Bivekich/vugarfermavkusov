@@ -1,23 +1,23 @@
-import "../styles/Card.css";
 import { Link } from "react-router-dom";
 
 const Card = ({ id, title, price, image, per, onClick }) => {
   return (
-    <article className="product-card" title={title}>
-      <div className="product-image-wrapper">
-        <div className="product-image-container">
+    <article className="flex flex-col overflow-hidden rounded-lg cursor-pointer transition-all duration-300 shadow-lg max-w-[200px] bg-white">
+      <div className="relative flex-shrink-0">
+        <div className="w-full h-[200px] transition-transform duration-200 relative">
           <img
             alt={title}
-            className="product-image"
+            className="object-cover w-full h-full absolute top-0 left-0"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={image}
           />
         </div>
-        <div className="product-action">
-          <div className="action-button-container">
+
+        <div className="absolute bottom-0 right-0 p-2 z-2">
+          <div className="flex justify-center items-center">
             <button
               onClick={onClick}
-              className="action-button"
+              className="flex justify-center items-center w-10 aspect-square bg-brand rounded-full text-white p-0"
               aria-label={`View details of ${title}`}
             >
               <svg
@@ -46,12 +46,15 @@ const Card = ({ id, title, price, image, per, onClick }) => {
           </div>
         </div>
       </div>
-      <div className="product-info">
-        <div className="product-price">
-          <span className="price">{price}₽</span>
+
+      <div className="flex flex-col p-4 bg-white">
+        <div className="mb-2">
+          <span className="font-bold text-lg text-gray-800">{price}₽</span>
         </div>
-        <h2 className="product-title">{title}</h2>
-        <div className="product-unit">Цена за {per}</div>
+
+        <h2 className="text-gray-800 text-base mb-2">{title}</h2>
+
+        <div className="text-gray-600 text-sm">Цена за {per}</div>
       </div>
     </article>
   );

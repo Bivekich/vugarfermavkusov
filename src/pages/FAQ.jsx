@@ -1,4 +1,3 @@
-import "../styles/FAQ.css";
 import { useEffect, useState } from "react";
 import { getFAQ } from "../sanityclient";
 
@@ -34,29 +33,34 @@ const FAQ = () => {
   const faqContentStyle = (isOpen) => ({
     maxHeight: isOpen ? "500px" : "0",
     opacity: isOpen ? 1 : 0,
-    marginTop: isOpen ? "1.25rem" : "0",
+    marginTop: isOpen ? "1rem" : "0",
     overflow: "hidden",
     transition:
       "max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.4s ease-in-out",
   });
 
   return (
-    <section className="faq-section">
-      <div className="faq-wrapper">
-        <h1 className="faq-title">Frequently Ask Question</h1>
-        <p className="faq-subtitle">Ответы на часто-задаваемые вопросы</p>
-        <div className="faq-list">
+    <section className="py-12 px-4">
+      <div className="max-w-2xl mx-auto text-center">
+        <h1 className="text-4xl font-bold">Frequently Asked Questions</h1>
+        <p className="text-2xl my-5">Ответы на часто задаваемые вопросы</p>
+        <div className="flex flex-col gap-5">
           {faqElements.map((item, index) => (
-            <div key={index} className="faq-item">
+            <div
+              key={index}
+              className="border-0 rounded-lg p-4 transition duration-300 shadow-lg"
+            >
               <button
-                className="faq-button"
+                className="flex justify-between items-center w-full text-left text-lg bg-transparent border-0 p-3"
                 onClick={() => toggleFAQ(index)}
                 aria-expanded={openFAQ[index]}
                 aria-controls={`faq-content-${index}`}
               >
                 <span className="faq-question">{item.question}</span>
                 <svg
-                  className={`faq-icon ${openFAQ[index] ? "rotated" : ""}`}
+                  className={`transition-transform duration-400 ${
+                    openFAQ[index] ? "rotate-90" : ""
+                  }`}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 24 24"
@@ -70,7 +74,7 @@ const FAQ = () => {
               <div
                 id={`faq-content-${index}`}
                 style={faqContentStyle(openFAQ[index])}
-                className="faq-answer"
+                className="text-left mt-2"
               >
                 {item.answer}
               </div>

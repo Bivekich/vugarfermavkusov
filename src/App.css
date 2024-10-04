@@ -2,21 +2,7 @@
   width: 100vw;
   margin: 0 auto;
   text-align: center;
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+  min-height: 100vh;
 }
 
 .card {
@@ -25,4 +11,37 @@
 
 .read-the-docs {
   color: #888;
+}
+.bg-brand {
+  background-color: rgb(2, 178, 144);
+}
+
+.border-brand {
+  border-color: rgb(2, 178, 144);
+}
+.text-brand {
+  color: rgb(2 178 144);
+}
+
+.text-brand-light {
+  color: white;
+}
+
+.text-brand-dark {
+  color: black;
+}
+
+.text-brand-muted {
+  color: rgb(89 89 89);
+}
+
+.accordion__panel.collapsed .accordion__button {
+  background-color: #f8f9fa;
+}
+.accordion__panel.collapsed .accordion__content {
+  display: none;
+}
+.accordion__panel.expanded .accordion__content {
+  display: block;
+  background-color: #fff;
 }

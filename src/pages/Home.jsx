@@ -1,5 +1,3 @@
-import "../styles/Home.css";
-import Card from "../components/Card";
 import CatCard from "../components/CatCard";
 import { getCategories } from "../sanityclient";
 import { useState, useEffect } from "react";
@@ -21,11 +19,7 @@ const Home = () => {
   return (
     <>
       <Banner />
-      <div className="product-grid">
-        {/* <Card title="Брокколи" price="9999999" image="/broccoli.webp" />
-        <Card title="Брокколи" price="9999999" image="/broccoli.webp" />
-        <Card title="Брокколи" price="9999999" image="/broccoli.webp" />
-        <Card title="Брокколи" price="9999999" image="/broccoli.webp" /> */}
+      <div className="flex flex-row gap-5 p-4 justify-center">
         {categories.map((item) => (
           <CatCard
             title={item.title}

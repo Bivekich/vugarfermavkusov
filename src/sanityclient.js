@@ -30,33 +30,67 @@ export async function getCategories() {
   }`);
   return category;
 }
-export async function getPosts(catid = null) {
-  const post = await client.fetch(`*[_type == "post"${
-    catid ? ` && references("${catid}")` : ``
-  }] {
+export async function getPosts(catid = null, id = null) {
+  let query = `*[_type == "post"`;
+
+  // Проверка на наличие id и catid
+  if (id) {
+    query += ` && _id != "${id}"`; // Если указан id, ищем пост по id
+  }
+
+  if (catid) {
+    query += ` && references("${catid}")`; // Если указан catid, добавляем условие по категории
+  }
+
+  query += `] {
     _id,
     title,
-    "mainImageSrc": mainImage.asset->url,
+    "mainImageSrc": mainImage[0].asset->url,
     description,
     price,
     per,
     categories[]-> {
         title
     }
-}
-`);
+  }`;
+
+  const post = await client.fetch(query);
+
+  // Если передан id, проверяем найден ли пост
+  if (id && post.length === 0) {
+    throw new Error(`Пост с id ${id} не найден.`);
+  }
+
   return post;
 }
+
+export async function searchPosts(search) {
+  const post = await client.fetch(
+    `*[_type == "post" && title match $search + "*"] {
+      _id,
+      title,
+      "mainImageSrc": mainImage[0].asset->url,
+      description,
+      price,
+      per,
+      categories
+    }`,
+    { search }
+  );
+  return post;
+}
+
 export async function getPost(id) {
   const post = await client.fetch(`*[_id == "${id}"][0] {
     title,
-    "mainImageSrc": mainImage.asset->url,
+    "mainImageSrc": mainImage[].asset->url,
     description,
     price,
     per,
     categories[]-> {
-        title
-    }
+        title,
+        _id
+    },
 }
 `);
   return post;
