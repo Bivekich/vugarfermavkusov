@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { format, addDays } from "date-fns";
 import { ru } from "date-fns/locale";
 import { getCart } from "../utils/cartUtils";
+import axios from "axios";
 // import { sendMail } from "../utils/mailUtils";
 
 const Order = () => {
@@ -12,7 +13,6 @@ const Order = () => {
   const [phone, setPhone] = useState("");
   useEffect(() => {
     setCartItems(getCart());
-    // sendMail("vl.ebel.tm@gmail.com", "ntcn", "тест");
   }, []);
 
   const generateFourDigitCode = () => {
@@ -54,10 +54,22 @@ const Order = () => {
   // email
   // code
   const handleOrder = () => {
-    const subject_buyer = "Ваш заказ на сайте fetmavcusov";
+    const subject_buyer = "Ваш заказ на сайте fermavkusov";
     const text_buyer = `Ваш номер заказа: ${code}`;
+    axios
+      .post("http://localhost:3000/send-email", {
+        to: email,
+        subject: subject_buyer,
+        text: text - buyer,
+      })
+      .then(function (response) {
+        console.log("Success:", response.data);
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
 
-    const subject_seller = "Новый заказ на сайте fetmavcusov";
+    const subject_seller = "Новый заказ на сайте fermavkusov";
     const text_seller = `Новый заказ с номером ${code} на сумму ${total} рублей\n
     Номер телефона покупателя: ${phone}\n
     ${cartItems.map(
@@ -67,6 +79,19 @@ const Order = () => {
         } \n`
     )}
     `;
+
+    axios
+      .post("http://localhost:3000/send-email", {
+        to: "admin@fermavkusov.ru",
+        subject: subject_seller,
+        text: text_seller,
+      })
+      .then(function (response) {
+        console.log("Success:", response.data);
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
   };
 
   return (
