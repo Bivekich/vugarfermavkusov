@@ -19,7 +19,7 @@ const Banner = () => {
   return (
     <div
       className="w-full bg-cover bg-center min-h-[400px] md:min-h-[460px] lg:min-h-[500px] xl:min-h-[650px] bg-no-repeat mb-5 flex items-center justify-center"
-      style={{ backgroundImage: "url('banner.webp')" }}
+      style={{ backgroundImage: `url('${banner.image}')` }}
     >
       <div className="flex items-center justify-center h-full">
         <div className="max-w-2xl text-center px-6">

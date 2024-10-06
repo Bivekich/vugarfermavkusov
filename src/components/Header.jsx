@@ -27,7 +27,9 @@ const Header = () => {
 
     fetchCategories();
     setInterval(() => {
-      setCartItems(getCart());
+      if (!isCartOpen) {
+        setCartItems(getCart());
+      }
     }, 1000);
   }, []);
 
@@ -349,7 +351,7 @@ const Header = () => {
                 cartItems.map((item) => (
                   <div
                     key={item.id}
-                    className="group w-full h-auto flex justify-start items-center text-brand-light py-4 md:py-7 border-b border-border-one border-opacity-70 relative last:border-b-0"
+                    className="group w-full h-auto flex justify-start items-center text-brand-light py-4 md:py-7 border-b border-border-one border-opacity-70 relative last:border-b-0 gap-3"
                   >
                     <div className="relative flex rounded overflow-hidden shrink-0 cursor-pointer w-[90px] md:w-[100px] h-[90px] md:h-[100px]">
                       <img
@@ -361,7 +363,11 @@ const Header = () => {
                         data-nimg="1"
                         src={item.image}
                         class="object-cover bg-fill-thumbnail"
-                        style={{ color: "transparent", width: "auto" }}
+                        style={{
+                          color: "transparent",
+                          width: "100%",
+                          height: "100%",
+                        }}
                       />
                       <div
                         class="absolute top-0 flex items-center justify-center w-full h-full transition duration-200 ease-in-out bg-black ltr:left-0 rtl:right-0 bg-opacity-30 md:bg-opacity-0 md:group-hover:bg-opacity-30"

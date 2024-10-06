@@ -115,7 +115,7 @@ const Search = () => {
                         data-nimg="1"
                         src={categoryItem.imageSrc}
                         className=" rounded-full"
-                        style={{ color: "transparent", width: "auto" }}
+                        style={{ color: "transparent", width: "40px" }}
                       />
                     </div>
                     <span className="text-brand-dark capitalize py-0.5">

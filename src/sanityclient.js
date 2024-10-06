@@ -66,7 +66,7 @@ export async function getPosts(catid = null, id = null) {
 
 export async function searchPosts(search) {
   const post = await client.fetch(
-    `*[_type == "post" && title match $search + "*"] {
+    `*[_type == "post" && title match "*"+$search+"*"] {
       _id,
       title,
       "mainImageSrc": mainImage[0].asset->url,
@@ -82,6 +82,7 @@ export async function searchPosts(search) {
 
 export async function getPost(id) {
   const post = await client.fetch(`*[_id == "${id}"][0] {
+    _id,
     title,
     "mainImageSrc": mainImage[].asset->url,
     description,
@@ -99,6 +100,7 @@ export async function getBanner() {
   const banner = await client.fetch(`*[_type == "banner"][0] {
     title,
     undertitle,
+    "image": image.asset->url
 }
 `);
   return banner;
