@@ -103,7 +103,7 @@ const Search = () => {
                 >
                   <Link
                     to={`/search/?category=${categoryItem._id}`}
-                    className="flex items-center w-full ltr:text-left rtl:text-right cursor-pointer group"
+                    className="flex items-center w-full ltr:text-left rtl:text-right cursor-pointer group gap-3"
                   >
                     <div className="inline-flex shrink-0 2xl:w-12 2xl:h-12 3xl:w-auto 3xl:h-auto ltr:mr-2.5 rtl:ml-2.5 md:ltr:mr-4 md:rtl:ml-4 2xl:ltr:mr-3 2xl:rtl:ml-3 3xl:ltr:mr-4 3xl:rtl:ml-4">
                       <img
@@ -114,6 +114,7 @@ const Search = () => {
                         decoding="async"
                         data-nimg="1"
                         src={categoryItem.imageSrc}
+                        className=" rounded-full"
                         style={{ color: "transparent", width: "auto" }}
                       />
                     </div>
