@@ -1,7 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getBanner } from "../sanityclient";
 const Banner = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [banner, setBanner] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const banner_info = await getBanner();
+      setBanner(banner_info);
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(banner);
 
   return (
     <div
@@ -11,12 +24,9 @@ const Banner = () => {
       <div className="flex items-center justify-center h-full">
         <div className="max-w-2xl text-center px-6">
           <h2 className="text-3xl font-extrabold text-teal-600 mb-3">
-            Полезные овощи, которые вы заслуживаете есть свежими
+            {banner.title}
           </h2>
-          <p className="text-base text-gray-800 mb-6">
-            Мы поставляем и продаем самую лучшую говядину, баранину и свинину,
-            полученную с величайшей заботой от фермера.
-          </p>
+          <p className="text-base text-gray-800 mb-6">{banner.undertitle}</p>
           <div className="hidden md:block max-w-lg mx-auto">
             <div className="relative">
               <input

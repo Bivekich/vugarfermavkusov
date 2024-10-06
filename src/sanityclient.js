@@ -95,6 +95,14 @@ export async function getPost(id) {
 `);
   return post;
 }
+export async function getBanner() {
+  const banner = await client.fetch(`*[_type == "banner"][0] {
+    title,
+    undertitle,
+}
+`);
+  return banner;
+}
 
 export async function getFAQ() {
   const faq = await client.fetch('*[_type == "faq"]');
