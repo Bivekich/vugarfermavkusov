@@ -61,7 +61,10 @@ const Order = () => {
   const days = generateNextDays();
 
   const handleOrder = () => {
-    if (!isFormValid) return; // Предотвращаем отправку, если форма не валидна
+    if (!isFormValid) {
+      alert("Вы заполнили не все поля формы");
+      return;
+    } // Предотвращаем отправку, если форма не валидна
 
     const subject_buyer = "Ваш заказ на сайте fermavkusov";
     const text_buyer = `Ваш номер заказа: ${code}`;
@@ -102,6 +105,10 @@ const Order = () => {
       .catch(function (error) {
         console.error("Error:", error);
       });
+
+    Cookies.remove("cart");
+
+    alert("Спасибо за заказ, Ваш номер заказа отправлен Вам на почту");
   };
 
   return (
@@ -569,9 +576,15 @@ const Order = () => {
                 </span>
               </div>
               <button
-                onClick={(e) => handleOrder}
+                onClick={(e) => handleOrder()}
                 disabled={!isFormValid}
-                className="group text-[13px] md:text-sm lg:text-15px leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-body font-semibold text-center justify-center tracking-[0.2px] rounded placeholder-white focus-visible:outline-none focus:outline-none h-11 md:h-[50px] bg-brand text-brand-light font-manrope px-5 lg:px-6 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-opacity-90 focus:bg-opacity-70 w-full mt-8 mb-5 rounded font-semibold px-4 py-3 transition-all !bg-brand !text-brand-light"
+                className={`group text-[13px] md:text-sm lg:text-15px leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-body font-semibold text-center justify-center tracking-[0.2px] rounded placeholder-white focus-visible:outline-none focus:outline-none h-11 md:h-[50px] 
+                ${
+                  !isFormValid
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-brand text-brand-light hover:text-white hover:bg-opacity-90 focus:bg-opacity-70"
+                } 
+                w-full mt-8 mb-5 rounded font-semibold px-4 py-3 transition-all`}
               >
                 Заказать сейчас
               </button>
