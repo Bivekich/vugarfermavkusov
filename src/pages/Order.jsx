@@ -11,9 +11,21 @@ const Order = () => {
   const [selectedDay, setSelectedDay] = useState(null); // Выбранный день
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false); // Состояние для валидации формы
+
   useEffect(() => {
     setCartItems(getCart());
   }, []);
+
+  useEffect(() => {
+    // Проверяем, заполнены ли все поля
+    if (email && phone && selectedDay) {
+      setIsFormValid(true); // Все поля заполнены, форма валидна
+    } else {
+      setIsFormValid(false); // Форма не валидна, т.к. не все поля заполнены
+    }
+  }, [email, phone, selectedDay]);
 
   const generateFourDigitCode = () => {
     return Math.floor(1000 + Math.random() * 9000);
@@ -48,19 +60,16 @@ const Order = () => {
 
   const days = generateNextDays();
 
-  // for sending
-  // selectedDay
-  // phone
-  // email
-  // code
   const handleOrder = () => {
+    if (!isFormValid) return; // Предотвращаем отправку, если форма не валидна
+
     const subject_buyer = "Ваш заказ на сайте fermavkusov";
     const text_buyer = `Ваш номер заказа: ${code}`;
     axios
-      .post("http://localhost:3000/send-email", {
+      .post("https://api.fermavkusov.ru/send-email", {
         to: email,
         subject: subject_buyer,
-        text: text - buyer,
+        text: text_buyer,
       })
       .then(function (response) {
         console.log("Success:", response.data);
@@ -74,14 +83,15 @@ const Order = () => {
     Номер телефона покупателя: ${phone}\n
     ${cartItems.map(
       (item, index) =>
-        `${index + 1}) ${item.title} в количетсве ${item.quantity} ${
+        `${index + 1}) ${item.title} в количестве ${item.quantity} ${
           item.per
         } \n`
-    )}
+    )} \n
+    Пожелания: ${additionalInfo}
     `;
 
     axios
-      .post("http://localhost:3000/send-email", {
+      .post("https://api.fermavkusov.ru/send-email", {
         to: "admin@fermavkusov.ru",
         subject: subject_seller,
         text: text_seller,
@@ -322,8 +332,8 @@ const Order = () => {
                               </label>
                               <div
                                 className="border-border-base
-                  border-brand
-                  border-2 relative focus:outline-none rounded p-5 block cursor-pointer min-h-[112px] h-full group address__box flex flex-col"
+                                  border-brand
+                                  border-2 relative focus:outline-none rounded p-5 block cursor-pointer min-h-[112px] h-full group address__box flex flex-col"
                                 id="headlessui-radiogroup-option-:r2v:"
                                 role="radio"
                                 aria-checked="true"
@@ -336,7 +346,59 @@ const Order = () => {
                                   className="mb-2 font-semibold"
                                   id="headlessui-label-:r30:"
                                 >
-                                  Контактная информация
+                                  Email
+                                </h2>
+                                <div
+                                  className="flex flex-row w-full"
+                                  id="headlessui-description-:r31:"
+                                >
+                                  <input
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="border-border-base
+                                      border-brand w-full bg-white
+                                      border-2 relative focus:outline-none rounded py-0 px-5 block cursor-pointer h-fit w-1/2 group address__box"
+                                    id="headlessui-radiogroup-option-:r2v:"
+                                    placeholder="Эл. Почта"
+                                  />
+                                </div>
+                                <div className="absolute z-30 flex transition-all ltr:right-3 rtl:left-3 top-3 lg:opacity-0 address__actions">
+                                  <button className="flex items-center justify-center w-6 h-6 text-base rounded-full bg-brand text-brand-light text-opacity-80">
+                                    <svg
+                                      stroke="currentColor"
+                                      fill="currentColor"
+                                      strokeWidth="0"
+                                      version="1.2"
+                                      baseProfile="tiny"
+                                      viewBox="0 0 24 24"
+                                      height="1em"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path d="M21 6.879l-3.879-3.879c-.293-.293-.678-.439-1.061-.439-.384 0-.767.146-1.06.439l-10.939 10.939c-.293.293-.558.727-.75 1.188-.192.463-.311.959-.311 1.373v4.5h4.5c.414 0 .908-.119 1.371-.311.463-.192.896-.457 1.189-.75l10.94-10.939c.293-.293.439-.678.439-1.061 0-.384-.146-.767-.439-1.06zm-15.232 8.182l8.293-8.293 1.232 1.232-8.293 8.293-1.232-1.232zm1.732 3.939h-1.5l-1-1v-1.5c0-.077.033-.305.158-.605.01-.02 2.967 2.938 2.967 2.938-.322.134-.548.167-.625.167zm1.439-.768l-1.232-1.232 8.293-8.293 1.232 1.232-8.293 8.293zm9-9l-3.172-3.172 1.293-1.293 3.17 3.172-1.291 1.293z"></path>
+                                    </svg>
+                                  </button>
+                                </div>
+                              </div>
+                              <div
+                                className="border-border-base
+                                  border-brand
+                                  border-2 relative focus:outline-none rounded p-5 block cursor-pointer min-h-[112px] h-full group address__box flex flex-col"
+                                id="headlessui-radiogroup-option-:r2v:"
+                                role="radio"
+                                aria-checked="true"
+                                tabIndex="0"
+                                data-headlessui-state="checked"
+                                aria-labelledby="headlessui-label-:r30:"
+                                aria-describedby="headlessui-description-:r31:"
+                              >
+                                <h2
+                                  className="mb-2 font-semibold"
+                                  id="headlessui-label-:r30:"
+                                >
+                                  Номер телефона
                                 </h2>
                                 <div
                                   className="flex flex-row w-full"
@@ -348,21 +410,10 @@ const Order = () => {
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
                                     className="border-border-base
-                  border-brand
-                  border-2 relative focus:outline-none rounded py-0 px-5 block cursor-pointer h-fit w-1/2 group address__box"
+                                      border-brand w-full bg-white
+                                      border-2 relative focus:outline-none rounded py-0 px-5 block cursor-pointer h-fit w-1/2 group address__box"
                                     id="headlessui-radiogroup-option-:r2v:"
                                     placeholder="Номер телефона"
-                                  />
-                                  <input
-                                    type="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="border-border-base
-                  border-brand
-                  border-2 relative focus:outline-none rounded py-0 px-5 block cursor-pointer h-fit w-1/2 group address__box"
-                                    id="headlessui-radiogroup-option-:r2v:"
-                                    placeholder="Эл. Почта"
                                   />
                                 </div>
                                 <div className="absolute z-30 flex transition-all ltr:right-3 rtl:left-3 top-3 lg:opacity-0 address__actions">
@@ -445,6 +496,10 @@ const Order = () => {
                                 autoComplete="off"
                                 spellCheck="false"
                                 rows="4"
+                                onChange={(e) =>
+                                  setAdditionalInfo(e.target.value)
+                                }
+                                value={additionalInfo}
                                 placeholder=""
                               ></textarea>
                             </div>
@@ -464,13 +519,13 @@ const Order = () => {
                   Корзина
                 </span>
               </div>
-              <div className="flex items-center py-4 border-b border-border-base">
+              <div className="flex items-start flex-col py-4 border-b border-border-base gap-3">
                 {cartItems.length > 0 ? (
                   cartItems.map((item, index) => (
                     <>
                       <div
                         key={item.id}
-                        className="flex w-16 h-16 border rounded-md border-border-base shrink-0 gap-5"
+                        className="flex w-16 h-16 border rounded-md border-border-base shrink-0 gap-5 justify-between w-full pr-3"
                       >
                         <img
                           alt="item image"
@@ -481,14 +536,23 @@ const Order = () => {
                           data-nimg="1"
                           className="rounded-md ltr:mr-5 rtl:ml-5"
                           src={item.image}
-                          style={{ color: "transparent", width: "auto" }}
+                          style={{
+                            color: "transparent",
+                            width: "60px",
+                            height: "60px",
+                          }}
                         />
-                        <div className="flex flex-col">
+                        <div className="flex flex-col justify-center">
                           <h6 className="font-normal text-15px text-brand-dark ltr:pl-3 rtl:pr-3">
                             {item.title}
                           </h6>
                           <div className="flex font-normal ltr:ml-auto rtl:mr-auto text-15px text-brand-dark ltr:pl-2 rtl:pr-2 shrink-0">
                             {item.price}₽&nbsp;X&nbsp;{item.quantity}
+                          </div>
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <div className="flex font-normal ltr:ml-auto rtl:mr-auto text-15px text-brand-dark ltr:pl-2 rtl:pr-2 shrink-0">
+                            {item.price * item.quantity}₽
                           </div>
                         </div>
                       </div>
@@ -506,6 +570,7 @@ const Order = () => {
               </div>
               <button
                 onClick={(e) => handleOrder}
+                disabled={!isFormValid}
                 className="group text-[13px] md:text-sm lg:text-15px leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-body font-semibold text-center justify-center tracking-[0.2px] rounded placeholder-white focus-visible:outline-none focus:outline-none h-11 md:h-[50px] bg-brand text-brand-light font-manrope px-5 lg:px-6 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-opacity-90 focus:bg-opacity-70 w-full mt-8 mb-5 rounded font-semibold px-4 py-3 transition-all !bg-brand !text-brand-light"
               >
                 Заказать сейчас

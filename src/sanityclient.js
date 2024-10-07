@@ -113,9 +113,24 @@ export async function getFAQ() {
 
 export async function getAboutus() {
   const query = `*[_type == "aboutus"][0]{
+    aboutus,
     "image": image.asset->url,
     title,
-    text,
+    p1,
+    p2,
+    p3,
+    "image1": image1.asset->url,
+    "image2": image2.asset->url,
+    p4,
+    p5,
+    "image3": image3.asset->url,
+    "image4": image4.asset->url,
+    "image5": image5.asset->url,
+    p6,
+    p7,
+    title1,
+    "image6": image6.asset->url,
+    p8,
   }`;
   const aboutus = await client.fetch(query);
   return aboutus;
