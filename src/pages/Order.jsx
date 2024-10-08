@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { format, addDays } from "date-fns";
 import { ru } from "date-fns/locale";
-import { getCart } from "../utils/cartUtils";
+import { getCart, clearCart } from "../utils/cartUtils";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import { sendMail } from "../utils/mailUtils";
 
 const Order = () => {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]); // Состояние для хранения товаров в корзине
   const [currentStep, setCurrentStep] = useState(0); // Текущий этап оформления заказа
   const [selectedDay, setSelectedDay] = useState(null); // Выбранный день
@@ -106,9 +108,11 @@ const Order = () => {
         console.error("Error:", error);
       });
 
-    Cookies.remove("cart");
+    clearCart();
 
     alert("Спасибо за заказ, Ваш номер заказа отправлен Вам на почту");
+
+    navigate("/");
   };
 
   return (

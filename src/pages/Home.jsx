@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <Banner />
-      <div className="flex flex-row gap-5 p-4 justify-center">
+      <div className="flex flex-row gap-5 p-4 justify-center w-fit">
         {categories.map((item) => (
           <CatCard
             title={item.title}

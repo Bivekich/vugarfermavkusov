@@ -28,6 +28,7 @@ export const addItemToCart = (product, quantity = 1) => {
       image: product.image,
       title: product.title,
       price: product.price,
+      per: product.per,
       quantity,
     });
   }
