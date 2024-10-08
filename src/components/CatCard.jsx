@@ -4,7 +4,7 @@ const CatCard = ({ title, image, to }) => {
   return (
     <>
       <Link
-        className="group block text-center shrink-0 2xl:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12 w-fit"
+        className="group block text-center shrink-0 2xl:px-3.5 mb-12 w-fit"
         to={to} // Можно заменить на переменную или пропс
       >
         <div className="flex max-w-[178px] max-h-[178px] mb-3.5 xl:mb-4 mx-auto rounded-full overflow-hidden bg-[aliceblue]">
