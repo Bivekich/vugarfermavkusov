@@ -69,22 +69,7 @@ const Order = () => {
     } // Предотвращаем отправку, если форма не валидна
 
     const subject_buyer = "Ваш заказ на сайте fermavkusov";
-    const text_buyer = `Ваш номер заказа: ${code}`;
-    axios
-      .post("https://api.fermavkusov.ru/send-email", {
-        to: email,
-        subject: subject_buyer,
-        text: text_buyer,
-      })
-      .then(function (response) {
-        console.log("Success:", response.data);
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-      });
-
-    const subject_seller = "Новый заказ на сайте fermavkusov";
-    const text_seller = `Новый заказ с номером ${code} на сумму ${total} рублей\n
+    const text = `Новый заказ с номером ${code} на сумму ${total} рублей\n
     Номер телефона покупателя: ${phone}\n
     ${cartItems.map(
       (item, index) =>
@@ -94,12 +79,26 @@ const Order = () => {
     )} \n
     Пожелания: ${additionalInfo}
     `;
+    axios
+      .post("https://api.fermavkusov.ru/send-email", {
+        to: email,
+        subject: subject_buyer,
+        text: text,
+      })
+      .then(function (response) {
+        console.log("Success:", response.data);
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+
+    const subject_seller = "Новый заказ на сайте fermavkusov";
 
     axios
       .post("https://api.fermavkusov.ru/send-email", {
         to: "admin@fermavkusov.ru",
         subject: subject_seller,
-        text: text_seller,
+        text: text,
       })
       .then(function (response) {
         console.log("Success:", response.data);
